@@ -22,8 +22,8 @@ export function PuppyForm() {
                     />
                     </fieldset>
                     <fieldset
-                    disabled=""
-                    className="col-span-2 flex w-full cursor-not-allowed flex-col gap-1 opacity-50"
+                        disabled
+                        className="col-span-2 flex w-full cursor-not-allowed flex-col gap-1 opacity-50"
                     >
                     <label htmlFor="avatar_url">Profile pic</label>
                     <input
