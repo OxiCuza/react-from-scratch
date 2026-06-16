@@ -7,6 +7,7 @@ import { PuppyForm } from "./components/PuppyForm";
 import { Search } from "./components/Search";
 import { SortList } from "./components/SortList";
 import { puppies } from "./data/puppies";
+import { Puppy } from "./types";
 
 export function App() {
   return (
@@ -20,13 +21,13 @@ export function App() {
 }
 
 function Main() {
-  const [liked, setLiked] = useState<number[]>([1, 4]);
+  const [liked, setLiked] = useState<Puppy["id"][]>([1, 4]);
 
   return (
     <main>
       <div className="mt-24 grid gap-8 sm:grid-cols-2">
         <Search />
-        <SortList />
+        <SortList puppies={puppies} liked={liked} setLiked={setLiked} />
       </div>
         <PuppiesList puppies={puppies} liked={liked} setLiked={setLiked} />
         <PuppyForm />

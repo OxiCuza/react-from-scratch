@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { Puppy } from "../types";
 
 export function LikeButton({
     id,
@@ -7,8 +8,8 @@ export function LikeButton({
     setLiked
 }: {
     id: number,
-    liked: number[],
-    setLiked: Dispatch<SetStateAction<number[]>>
+    liked: Puppy["id"][],
+    setLiked: Dispatch<SetStateAction<Puppy["id"][]>>
 }) {
     return (
         <button 
