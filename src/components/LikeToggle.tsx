@@ -1,33 +1,32 @@
 import { Heart } from "lucide-react";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export function LikeButton() {
-    const [isLiked, setIsLiked] = useState(false);
-    const [count, setCount] = useState(0);
-
-    function handleClick() {
-        setIsLiked(!isLiked);
-
-        if (!isLiked) {
-            setCount(count + 1);
-        } else {
-            setCount(count - 1);
-        }
-    }
-
+export function LikeButton({
+    id,
+    liked,
+    setLiked
+}: {
+    id: number,
+    liked: number[],
+    setLiked: Dispatch<SetStateAction<number[]>>
+}) {
     return (
         <button 
-            className="group flex items-center gap-1"
-            onClick={handleClick}>
+            className="group"
+            onClick={() => {
+                if (liked.includes(id)) {
+                    setLiked(liked.filter((likedId) => likedId !== id))
+                } else {
+                    setLiked([...liked, id])
+                }
+            }}>
             <Heart 
                 className={
-                    isLiked // Chase
+                    liked.includes(id)
                         ? "fill-pink-500 stroke-none"
                         : "stroke-slate-200 group-hover:stroke-slate-300"
                 } 
             />
-
-            <span>{count}</span>
         </button>
     )
 }
