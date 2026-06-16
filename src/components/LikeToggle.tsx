@@ -7,7 +7,12 @@ export function LikeButton() {
 
     function handleClick() {
         setIsLiked(!isLiked);
-        setCount(count + 1);
+
+        if (!isLiked) {
+            setCount(count + 1);
+        } else {
+            setCount(count - 1);
+        }
     }
 
     return (
