@@ -6,7 +6,7 @@ import { PuppiesList } from "./components/PuppiesList";
 import { PuppyForm } from "./components/PuppyForm";
 import { Search } from "./components/Search";
 import { SortList } from "./components/SortList";
-import { puppies } from "./data/puppies";
+import { puppies as puppyData } from "./data/puppies";
 import { Puppy } from "./types";
 import { LikedContext } from "./context/liked-context";
 
@@ -24,6 +24,7 @@ export function App() {
 function Main() {
   const [liked, setLiked] = useState<Puppy["id"][]>([1, 4]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [puppies, setPuppies] = useState<Puppy[]>(puppyData);
 
   return (
     <main>
@@ -34,7 +35,7 @@ function Main() {
       </div>
         <PuppiesList puppies={puppies} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </LikedContext>
-        <PuppyForm />
+        <PuppyForm puppies={puppies} setPuppies={setPuppies} />
     </main>
   )
 }
