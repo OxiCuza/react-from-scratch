@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Puppy } from "../types";
+import { useFormStatus } from "react-dom";
 
 export function PuppyForm({
     puppies,
@@ -11,7 +12,10 @@ export function PuppyForm({
     return (
         <div className="mt-12 flex items-center justify-between bg-white p-8 shadow ring ring-black/5">
             <form 
-                action={(formData: FormData) => {
+                action={async (formData: FormData) => {
+
+                    await new Promise((resolve) => setTimeout(resolve, 2000));
+                    
                     const newPuppy: Puppy = {
                         id: puppies.length + 1,
                         name: formData.get("name") as string,
@@ -26,6 +30,7 @@ export function PuppyForm({
                     <fieldset className="flex w-full flex-col gap-1">
                     <label htmlFor="name">Name</label>
                     <input
+                        required
                         className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
                         id="name"
                         type="text"
@@ -35,6 +40,7 @@ export function PuppyForm({
                     <fieldset className="flex w-full flex-col gap-1">
                     <label htmlFor="trait">Personality trait</label>
                     <input
+                        required
                         className="max-w-96 rounded-sm bg-white px-2 py-1 ring ring-black/20 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
                         id="trait"
                         type="text"
@@ -54,13 +60,22 @@ export function PuppyForm({
                     />
                     </fieldset>
                 </div>
-                <button
-                    className="mt-4 inline-block rounded bg-cyan-300 px-4 py-2 font-medium text-cyan-900 hover:bg-cyan-200 focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-                    type="submit"
-                >
-                    Add puppy
-                </button>
+                <SubmitButton />
             </form>
         </div>
+    )
+}
+
+function SubmitButton() {
+    const status = useFormStatus();
+    
+    return (
+        <button
+            className="mt-4 inline-block rounded bg-cyan-300 px-4 py-2 font-medium text-cyan-900 hover:bg-cyan-200 focus:ring-2 focus:ring-cyan-500 focus:outline-none disabled:bg-slate-200 disabled:cursor-not-allowed"
+            disabled={status.pending}
+            type="submit"
+        >
+            {status.pending ? `Adding ${status?.data?.get("name")}...` : "Add puppy"}
+        </button>
     )
 }
